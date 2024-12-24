@@ -33,6 +33,8 @@ LOGIN_REDIRECT_URL = '/transactions/report'
 # Application definition
 
 INSTALLED_APPS = [
+     'channels',
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,6 +48,10 @@ INSTALLED_APPS = [
     'core',
     'transactions',
 ]
+
+ASGI_APPLICATION = 'banking_system.asgi.application'
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
