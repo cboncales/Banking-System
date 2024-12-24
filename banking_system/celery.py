@@ -23,10 +23,9 @@ app.conf.beat_schedule = {
     'calculate_interest': {
         'task': 'calculate_interest',
         # http://docs.celeryproject.org/en/latest/userguide/periodic-tasks.html
-        'schedule': crontab(0, 0, day_of_month='1'),
+        'schedule': crontab('0', '0', day_of_month='1'),
     }
 }
-
 
 @app.task(bind=True)
 def debug_task(self):

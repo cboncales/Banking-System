@@ -35,7 +35,7 @@ class TransactionRepostView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset().filter(
-            account=self.request.user.account
+            account=self.request.user.account # type: ignore
         )
 
         daterange = self.form_data.get("daterange")
@@ -48,7 +48,7 @@ class TransactionRepostView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
-            'account': self.request.user.account,
+            'account': self.request.user.account, # type: ignore
             'form': TransactionDateRangeForm(self.request.GET or None)
         })
 
@@ -64,7 +64,7 @@ class TransactionCreateMixin(LoginRequiredMixin, CreateView):
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs.update({
-            'account': self.request.user.account
+            'account': self.request.user.account # type: ignore
         })
         return kwargs
 
@@ -87,7 +87,7 @@ class DepositMoneyView(TransactionCreateMixin):
 
     def form_valid(self, form):
         amount = form.cleaned_data.get('amount')
-        account = self.request.user.account
+        account = self.request.user.account # type: ignore
 
         if not account.initial_deposit_date:
             now = timezone.now()
@@ -129,8 +129,8 @@ class WithdrawMoneyView(TransactionCreateMixin):
     def form_valid(self, form):
         amount = form.cleaned_data.get('amount')
 
-        self.request.user.account.balance -= form.cleaned_data.get('amount')
-        self.request.user.account.save(update_fields=['balance'])
+        self.request.user.account.balance -= form.cleaned_data.get('amount') # type: ignore
+        self.request.user.account.save(update_fields=['balance']) # type: ignore
 
         messages.success(
             self.request,
