@@ -14,6 +14,12 @@ from transactions.forms import (
 )
 from transactions.models import Transaction
 
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from .models import Transaction  # Adjust the import
+
+class CustomUser(Transaction):
+    account = 'UserBankAccount'
 
 class TransactionRepostView(LoginRequiredMixin, ListView):
     template_name = 'transactions/transaction_report.html'
