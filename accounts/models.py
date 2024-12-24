@@ -86,7 +86,7 @@ class UserBankAccount(models.Model):
     gender = models.CharField(max_length=1, choices=GENDER_CHOICE)
     birth_date = models.DateField(null=True, blank=True)
     balance = models.DecimalField(
-        default=0,
+        default=Decimal('0.00'),
         max_digits=12,
         decimal_places=2
     )
@@ -107,9 +107,10 @@ class UserBankAccount(models.Model):
 
         returns [2, 4, 6, 8, 10, 12] for every 2 months interval
         """
-        interval = int(
-            12 / self.account_type.interest_calculation_per_year
-        )
+        if self.interest_start_date is None:
+            return []
+
+        interval = int(12 / self.account_type.interest_calculation_per_year)
         start = self.interest_start_date.month
         return [i for i in range(start, 13, interval)]
 
