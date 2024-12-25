@@ -29,10 +29,13 @@ ALLOWED_HOSTS = []
 
 LOGIN_REDIRECT_URL = '/transactions/report'
 
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Application definition
 
-INSTALLED_APPS = [
+INSTALLED_APPS = [    
+    'daphne',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,11 +44,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'django_celery_beat',
-
+    'channels',
     'accounts',
     'core',
     'transactions',
 ]
+
+ASGI_APPLICATION = 'banking_system.asgi.application'
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
